@@ -185,20 +185,42 @@ def main():
             print("=" * 30)
             while True:
                 date = input("Enter date(yy-mm-dd) or press enter for todays date:: ")
+                
                 if date == "":
                     date = None
                     break
                 else:
+                    try:
+                        datetime.strptime(date, '%Y-%m-%d')
+                        break
+                    except ValueError:
+                        print('Please enter valid date:: ')
                         
+            category = input('Enter the category:: ')
+            description = input('Enter the description:: ')
+            
+            while True:
+                try:
+                    while True:
+                        amount = input('Enter the amount:: ')
+                        amount = float(amount)
+                        if amount < 0:
+                            print('Anount cant be negative:: ')
+                        else:
+                            break
+                    break
+                        
+                except ValueError:
+                    print('Please enter the valid amount')
+                    
+            expenses_data.add_expense(date, category, description, amount)
+                    
         
                 
-            
-        break
-    
-        
         
 
-main()
+if __name__ == '__main__':
+    main()
                 
                
         
