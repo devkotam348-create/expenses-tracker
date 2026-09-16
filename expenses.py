@@ -173,6 +173,7 @@ def main():
         
         choice = input('Enter the task number:: ')
         
+        ########### view all the expenses ####################################
         if choice == '1':
             print('=' * 30)
             if not expenses_data.expenses:
@@ -180,8 +181,9 @@ def main():
                 return
             for i , expense in enumerate(expenses_data.expenses, start = 1):
                 print(f"{i}. {expense.date}|{expense.category}|{expense.description}|{expense.amount}")
-            
-        if choice == "2":
+        
+        ##################### Add Expenses ##################################    
+        elif choice == "2":
             print("=" * 30)
             while True:
                 date = input("Enter date(yy-mm-dd) or press enter for todays date:: ")
@@ -199,21 +201,43 @@ def main():
             category = input('Enter the category:: ')
             description = input('Enter the description:: ')
             
+            """Adding the new expenses"""
             while True:
+                amount_str = input('Enter the amount:: ')
+                if amount_str =='':
+                    print('Amount cannot be empty::')
+                    continue
                 try:
-                    while True:
-                        amount = input('Enter the amount:: ')
-                        amount = float(amount)
-                        if amount < 0:
-                            print('Anount cant be negative:: ')
-                        else:
-                            break
+                    amount = float(amount_str)
+                    if amount < 0:
+                        print('Amount cannot be negative::')
+                        continue
                     break
-                        
                 except ValueError:
-                    print('Please enter the valid amount')
+                    print('Please enter the valid number::')
+                
                     
             expenses_data.add_expense(date, category, description, amount)
+        
+        elif choice == '3':
+            print('=' * 30)
+            while True:
+                date = input('Enter the search date(yy-mm-dd) or press enter for todays date:: ')
+                if date =='':
+                    date = None
+                    break 
+                else:
+                    try:
+                        datetime.strptime(date,'%Y-%m-%d')
+                        break
+                    except ValueError:
+                        print('Please enter the valid date:: ')
+                        
+                
+                    
+            
+            
+        
                     
         
                 
